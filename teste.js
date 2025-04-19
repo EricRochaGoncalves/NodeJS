@@ -16,6 +16,11 @@ const Postagem = sequelize.define('postagens', {
     
 
 })
+
+Postagem.create({
+    titulo: "Titulo bacana",
+    conteudo: "Conteúdo daora"
+})
 const Usuario = sequelize.define('usuarios', {
     nome: {
         type: Sequelize.STRING
