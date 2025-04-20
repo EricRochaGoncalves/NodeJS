@@ -17,10 +17,10 @@ const Postagem = sequelize.define('postagens', {
 
 })
 
-Postagem.create({
-    titulo: "Titulo bacana",
-    conteudo: "Conteúdo daora"
-})
+//Postagem.create({
+    //titulo: "Titulo bacana",
+    //conteudo: "Conteúdo daora"
+//})
 const Usuario = sequelize.define('usuarios', {
     nome: {
         type: Sequelize.STRING
@@ -37,4 +37,11 @@ const Usuario = sequelize.define('usuarios', {
     
 
 })
+Usuario.create({
+    nome: "Eric",
+    sobrenome: "Rocha",
+    idade: 19,
+    email: "ericrochagoncalves59@gmail.com"
 
+})
+Usuario.sync()
