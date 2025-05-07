@@ -23,7 +23,11 @@ Este repositório demonstra como criar **rotas simples com Express** e **conecta
 ## 📁 Estrutura do Projeto
 
 projeto/
-├── server.js
+
+├── app.js
+
+├── teste.js
+
 └── package.json
 
 
@@ -31,35 +35,26 @@ projeto/
 
 ## ▶️ Como rodar o projeto
 
-1. Clone este repositório para sua máquina:
+-- 1. Clone este repositório para sua máquina:
 
 git clone https://github.com/seu-usuario/nome-do-repo.git
 
-Acesse o diretório do projeto:
+cd Rotas-em-NodeJS
 
-bash
-Copiar código
-cd nome-do-repo
-
-Instale as dependências:
-
-bash
-Copiar código
 npm install
 
-Certifique-se de que o MySQL esteja rodando e crie o banco de dados sistemadecadastro:
-
-sql:
+-- 2. Certifique-se de que o MySQL esteja rodando e crie o banco de dados sistemadecadastro:
 
 CREATE DATABASE sistemadecadastro;
 
 Execute o servidor:
 
-bash
+node app.js
 
-node server.js
+Acesse o servidor em:
+👉 http://localhost:8081
 
-📡 Rotas disponíveis
+# 📡 Rotas disponíveis
 
 Rota	Método	Descrição
 
@@ -70,6 +65,8 @@ Rota	Método	Descrição
 🧠 Exemplos de criação com Sequelize
 
 Criando um modelo de Postagem:
+
+
 
 const Postagem = sequelize.define('postagens', {
   titulo: Sequelize.STRING,
@@ -87,6 +84,7 @@ const Usuario = sequelize.define('usuarios', {
 
 Criando um usuário no banco de dados:
 
+
 Usuario.create({
   nome: "Eric",
   sobrenome: "Rocha",
@@ -94,73 +92,131 @@ Usuario.create({
   email: "ericrochagoncalves59@gmail.com"
 });
 
-📂 Código do Servidor (server.js)
-js
-Copiar código
-const express = require('express');
-const Sequelize = require('sequelize');
+📂 Código do Servidor (app.js)
+
+const express = require("express");
+const Sequelize = require("sequelize");
+
 const app = express();
 
 // Middleware para interpretar dados de formulário
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Rota GET
-app.get('/', (req, res) => {
-  res.send('Seja bem-vindo ao meu app');
+
+app.get("/", function (req, res) {
+  res.send("Seja bem-vindo ao meu app");
 });
 
 // Rota sobre
-app.get('/sobre', (req, res) => {
-  res.send('Seja bem-vindo à minha página sobre');
+
+app.get("/sobre", function (req, res) {
+  res.send("Seja bem-vindo à minha página sobre");
 });
 
 // Rota blog
-app.get('/blog', (req, res) => {
-  res.send('Seja bem-vindo ao meu blog');
+
+app.get("/blog", function (req, res) {
+  res.send("Seja bem-vindo ao meu blog");
 });
 
 // Conexão com MySQL e Sequelize
-const sequelize = new Sequelize('sistemadecadastro', 'root', 'Y@sp2006', {
-  host: 'localhost',
-  dialect: 'mysql'
+
+const sequelize = new Sequelize("sistemadecadastro", "root", "Y@sp2006", {
+  host: "localhost",
+  dialect: "mysql",
 });
 
 // Definindo o modelo de Postagem
-const Postagem = sequelize.define('postagens', {
+
+const Postagem = sequelize.define("postagens", {
   titulo: Sequelize.STRING,
-  conteudo: Sequelize.TEXT
+  conteudo: Sequelize.TEXT,
 });
 
 // Definindo o modelo de Usuario
-const Usuario = sequelize.define('usuarios', {
+
+const Usuario = sequelize.define("usuarios", {
   nome: Sequelize.STRING,
   sobrenome: Sequelize.STRING,
   idade: Sequelize.INTEGER,
-  email: Sequelize.STRING
+  email: Sequelize.STRING,
 });
 
 // Criando um usuário de exemplo
+
 Usuario.create({
   nome: "Eric",
   sobrenome: "Rocha",
   idade: 19,
-  email: "ericrochagoncalves59@gmail.com"
+  email: "ericrochagoncalves59@gmail.com",
 });
 
 // Sincronizando com o banco de dados
+
 Usuario.sync()
   .then(() => {
-    console.log('Banco de dados sincronizado');
+    console.log("Banco de dados sincronizado");
   })
   .catch((error) => {
-    console.error('Erro ao sincronizar o banco de dados:', error);
+    console.error("Erro ao sincronizar o banco de dados:", error);
   });
 
 // Iniciar o servidor
-app.listen(8081, () => {
-  console.log('Servidor rodando na URL http://localhost:8081');
+
+app.listen(8081, function () {
+  console.log("Servidor rodando na URL http://localhost:8081");
 });
+
+📂 Código de Teste (teste.js)
+
+const { Types } = require("mysql2");
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize("sistemadecadastro", "root", "Y@sp2006", {
+  host: "localhost",
+  dialect: "mysql",
+});
+
+const Postagem = sequelize.define("postagens", {
+  titulo: {
+    type: Sequelize.STRING,
+  },
+  conteudo: {
+    type: Sequelize.TEXT,
+  },
+});
+
+// Postagem.create({
+//   titulo: "Titulo bacana",
+//   conteudo: "Conteúdo daora",
+// });
+
+const Usuario = sequelize.define("usuarios", {
+  nome: {
+    type: Sequelize.STRING,
+  },
+  sobrenome: {
+    type: Sequelize.STRING,
+  },
+  idade: {
+    type: Sequelize.INTEGER,
+  },
+  email: {
+    type: Sequelize.STRING,
+  },
+});
+
+Usuario.create({
+  nome: "Eric",
+  sobrenome: "Rocha",
+  idade: 19,
+  email: "ericrochagoncalves59@gmail.com",
+});
+
+Usuario.sync();
 
 🗃️ Banco de Dados
 Banco de Dados: sistemadecadastro
@@ -169,7 +225,12 @@ Tabelas: usuarios, postagens
 
 ✍️ Autor
 Eric Gonçalves
-Portfólio
+
+
+
+
+
+
 
 
 
